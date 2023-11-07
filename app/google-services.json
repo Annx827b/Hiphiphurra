@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1009989674354",
+    "project_id": "hiphiphurra-cbcd3",
+    "storage_bucket": "hiphiphurra-cbcd3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009989674354:android:53b8115ef55b51a1d469eb",
+        "android_client_info": {
+          "package_name": "com.example.hiphiphurra"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD19xlLg_k0WigiJsDJytqRCV2vjSxIox4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

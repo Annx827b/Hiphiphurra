@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="HipHip Hurra"
+            android:fontFamily="sans-serif-black"
+            android:textSize="28sp"  />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Never forget a birthday again!"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageView
+            android:id="@+id/birthdaycake.png"
+            android:layout_width="182dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/birthdaycake" />
+
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:backgroundTint="#E0115F"
+            android:textSize="24sp"
+            android:text="Login" />
+
+        <!-- Message for new users -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account?"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:backgroundTint="#FBAED2"
+            android:text="Sign Up" />
+
+    </LinearLayout>
+</ScrollView>
