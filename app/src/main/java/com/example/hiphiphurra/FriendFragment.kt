@@ -12,6 +12,7 @@ import com.example.hiphiphurra.databinding.FragmentFriendBinding
 import com.example.hiphiphurra.repository.FriendsViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+
 import java.util.Calendar
 
 class FriendFragment : Fragment() {
@@ -35,7 +36,7 @@ class FriendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val bundle = requireArguments()
-        val friendFragmentArgs: Fragment = friendFragmentArgs.fromBundle(bundle)
+        val friendFragmentArgs: FriendFragmentArgs = FriendFragmentArgs.fromBundle(bundle)
         val position = friendFragmentArgs.pos
         val friend = viewModel[position]
 

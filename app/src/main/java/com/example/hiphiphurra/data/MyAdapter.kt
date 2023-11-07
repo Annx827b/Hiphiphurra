@@ -18,7 +18,7 @@ class MyAdapter<T>(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_list, viewGroup, false)
+            .inflate(R.layout.list_items, viewGroup, false)
         return MyViewHolder(view, onItemClicked)
     }
 
