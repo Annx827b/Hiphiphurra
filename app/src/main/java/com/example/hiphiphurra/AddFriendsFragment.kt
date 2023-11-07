@@ -10,14 +10,15 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.hiphiphurra.databinding.FragmentAddFriendsBinding
 import com.example.hiphiphurra.models.Friend
 import com.example.hiphiphurra.repository.FriendsViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Calendar
 
-class AddAFriendFragment : Fragment() {
-    private var _binding: FragmentAddBinding? = null
+class AddFriendsFragment : Fragment() {
+    private var _binding: FragmentAddFriendsBinding? = null
     private var base: FirebaseAuth = FirebaseAuth.getInstance()
     private val viewModel: FriendsViewModel by activityViewModels()
     private val binding get() = _binding!!
@@ -45,7 +46,7 @@ class AddAFriendFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAddBinding.inflate(inflater, container, false)
+        _binding = FragmentAddFriendsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

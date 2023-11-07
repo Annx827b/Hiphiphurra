@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.hiphiphurra.models.Friend
 import androidx.navigation.fragment.findNavController
+import com.example.hiphiphurra.databinding.FragmentFriendBinding
 import com.example.hiphiphurra.repository.FriendsViewModel
-import com.example.oblibirthdayapp.databinding.FragmentFriendBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Calendar

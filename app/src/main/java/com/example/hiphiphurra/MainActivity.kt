@@ -9,8 +9,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import com.example.oblibirthdayapp.R
-import com.example.oblibirthdayapp.databinding.ActivityMainBinding
+import com.example.hiphiphurra.R
+import com.example.hiphiphurra.databinding.ActivityMainBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

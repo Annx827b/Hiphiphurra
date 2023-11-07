@@ -1,4 +1,4 @@
-package com.example.hiphiphurra.models
+package com.example.hiphiphurra
 
 import android.view.LayoutInflater
 import android.view.View

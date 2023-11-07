@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.oblibirthdayapp.R
-import com.example.oblibirthdayapp.databinding.FragmentLoginBinding
+import com.example.hiphiphurra.databinding.FragmentLoginBinding
+
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null

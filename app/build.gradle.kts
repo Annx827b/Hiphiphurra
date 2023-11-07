@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.oblibirthdayapp"
+    namespace = "com.example.hiphiphurra"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.oblibirthdayapp"
+        applicationId = "com.example.hiphiphurra"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
