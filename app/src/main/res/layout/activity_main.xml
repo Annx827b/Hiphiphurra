@@ -6,13 +6,24 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/darkpink"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,6 +88,8 @@
             android:layout_height="39dp"
             android:backgroundTint="#FBAED2"
             android:text="Sign Up" />
+
+
 
     </LinearLayout>
 </ScrollView>

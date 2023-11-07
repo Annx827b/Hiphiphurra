@@ -1,161 +1,100 @@
-package com.example.hiphiphurra.repository
+package com.example.hiphurra.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.hiphiphurra.models.Friend
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.text.SimpleDateFormat
+import com.example.hiphiphurra.models.Friend
+import com.example.hiphiphurra.repository.FriendsService
+import java.util.Calendar
 
 class FriendsRepository {
-
     private val baseUrl = "https://birthdaysrest.azurewebsites.net/api/"
-    // the specific (collection) part of the URL is on the individual methods in the interface FrindstoreService
-
-    //"http://anbo-restserviceproviderPersonss.azurewebsites.net/Service1.svc/"
-    private val friendsService : FriendsService
-    val FriendsLiveData: MutableLiveData<List<Friend>> = MutableLiveData<List<Friend>>()
-    val errorMessageLiveData: MutableLiveData<String> = MutableLiveData()
-    val updateMessageLiveData: MutableLiveData<String> = MutableLiveData()
+    private val serviceFriend: FriendsService
+    val friendLiveData: MutableLiveData<List<Friend>> = MutableLiveData<List<Friend>>()
+    val errorLiveData: MutableLiveData<String> = MutableLiveData()
+    val updateLiveData: MutableLiveData<String> = MutableLiveData()
 
     init {
-        //val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
         val build: Retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(MoshiConverterFactory.create()) // GSON
-            //.addConverterFactory(KotlinJsonAdapterFactory)
-            //.addConverterFactory(MoshiConverterFactory.create(moshi)) // Moshi, added to Gradle dependencies
+            .addConverterFactory(MoshiConverterFactory.create())
             .build()
-        friendsService = build.create(FriendsService::class.java)
-        getPersons3()
+        serviceFriend = build.create(FriendsService::class.java)
     }
 
     fun onFailureMessage(t: Throwable){
-        errorMessageLiveData.postValue(t.message)
-        Log.d("APPLE","my method. " + t.message!!)
+        errorLiveData.postValue(t.message)
+        Log.d("APPLE","Method: " + t.message!!)
     }
 
-    fun listResponceFail(response: Response<List<Friend>>){
+    fun listResponseFail(response: Response<List<Friend>>){
         val message = response.code().toString() + " " + response.message()
-        errorMessageLiveData.postValue(message)
+        errorLiveData.postValue(message)
         Log.d("APPLE", message)
     }
 
     fun checkResponse(response: Response<Friend>, operation: String){
         if (response.isSuccessful) {
             Log.d("APPLE", "$operation: " + response.body())
-            updateMessageLiveData.postValue("$operation: " + response.body())
+            updateLiveData.postValue("$operation: " + response.body())
         } else {
             val message = response.code().toString() + " " + response.message()
-            errorMessageLiveData.postValue(message)
+            errorLiveData.postValue(message)
             Log.d("APPLE", message)
         }
     }
-    fun getPersons(user_id: String?){
-        friendsService.getUserFriends(user_id).enqueue(object : Callback<List<Friend>>{
+
+    fun getFriends(user_id: String?){
+        serviceFriend.getUserFriends(user_id).enqueue(object : Callback<List<Friend>> {
             override fun onResponse(call: Call<List<Friend>>, response: Response<List<Friend>>) {
                 if (response.isSuccessful) {
-                    Log.d("APPLE", friendsService.getUserFriends(user_id).toString() )
-                    Log.d("APPLE",user_id +"rdszxdfgho")
+                    Log.d("APPLE", serviceFriend.getUserFriends(user_id).toString() )
+                    Log.d("APPLE",user_id +"hhhhh0000")
                     val b: List<Friend>? = response.body()
-                    FriendsLiveData.postValue(b!!)
-                    errorMessageLiveData.postValue("")
+                    friendLiveData.postValue(b!!)
+                    errorLiveData.postValue("")
                 } else {
-                    listResponceFail(response)
+                    listResponseFail(response)
                 }
             }
-
             override fun onFailure(call: Call<List<Friend>>, t: Throwable) {
                 onFailureMessage(t)
             }
         })
     }
 
-    fun getPersons3() {
-        friendsService.getAllFriends().enqueue(object : Callback<List<Friend>> {
-            override fun onResponse(call: Call<List<Friend>>, response: Response<List<Friend>>) {
-                if (response.isSuccessful) {
-                    //Log.d("APPLE", response.body().toString())
-                    val b: List<Friend>? = response.body()
-                    FriendsLiveData.postValue(b!!)
-                    errorMessageLiveData.postValue("")
-                } else {
-                    val message = response.code().toString() + " " + response.message()
-                    errorMessageLiveData.postValue(message)
-                    Log.d("APPLE", message)
-                }
-            }
-
-            override fun onFailure(call: Call<List<Friend>>, t: Throwable) {
-                //booksLiveData.postValue(null)
-                errorMessageLiveData.postValue(t.message)
-                Log.d("APPLE", t.message!!)
-            }
-        })
-    }
-    fun getFriends2(userId: String?) {
-        friendsService.getAllFriends().enqueue(object : Callback<List<Friend>> {
-            override fun onResponse(call: Call<List<Friend>>, response: Response<List<Friend>>) {
-                if (response.isSuccessful) {
-                    Log.d("APPLE", response.body().toString() + "repo")
-                    val f: List<Friend>? = response.body()
-                    val userFriends: MutableList<Friend> = mutableListOf()
-                    if (f != null) {
-                        for(Friend in f) {
-                            if(Friend.userId == userId) {
-                                Log.d("APPLE", userId.toString())
-                                userFriends.add(Friend)
-
-                            }
-                        }
-                    }
-                    FriendsLiveData.postValue(userFriends)
-                    errorMessageLiveData.postValue("")
-                } else {
-                    listResponceFail(response)
-                }
-            }
-
-            override fun onFailure(call: Call<List<Friend>>, t: Throwable) {
-                onFailureMessage(t)
-            }
-        })
-    }
-
-    fun add(Friends: Friend) {
-        friendsService.saveFriend(Friends).enqueue(object : Callback<Friend> {
+    fun add(friend: Friend) {
+        serviceFriend.saveFriend(friend).enqueue(object : Callback<Friend> {
             override fun onResponse(call: Call<Friend>, response: Response<Friend>) {
-                checkResponse(response, "Added")
-
+                checkResponse(response, "Friend is added")
             }
-
-            override fun onFailure(call: Call<Friend>, t: Throwable) {
-                onFailureMessage(t)
-            }
-        })
-    }
-    fun delete(id: Int) {
-        friendsService.deleteFriend(id).enqueue(object : Callback<Friend> {
-            override fun onResponse(call: Call<Friend>, response: Response<Friend>) {
-                checkResponse(response, "Deleted")
-            }
-
             override fun onFailure(call: Call<Friend>, t: Throwable) {
                 onFailureMessage(t)
             }
         })
     }
 
-
-    fun update(person: Friend) {
-        friendsService.updateFriend(person.id , person).enqueue(object : Callback<Friend> {
+    fun update(friend: Friend) {
+        serviceFriend.updateFriend(friend.id, friend).enqueue(object : Callback<Friend> {
             override fun onResponse(call: Call<Friend>, response: Response<Friend>) {
                 checkResponse(response, "Updated")
             }
+            override fun onFailure(call: Call<Friend>, t: Throwable) {
+                onFailureMessage(t)
+            }
+        })
+    }
 
+    fun delete(id: Int) {
+        serviceFriend.deleteFriend(id).enqueue(object : Callback<Friend> {
+            override fun onResponse(call: Call<Friend>, response: Response<Friend>) {
+                checkResponse(response, "Deleted")
+            }
             override fun onFailure(call: Call<Friend>, t: Throwable) {
                 onFailureMessage(t)
             }
@@ -163,59 +102,58 @@ class FriendsRepository {
     }
 
     fun sortByName() {
-        FriendsLiveData.value = FriendsLiveData.value?.sortedBy { it.name.uppercase() }
+        friendLiveData.value = friendLiveData.value?.sortedBy { it.name.uppercase() }
     }
 
     fun sortByNameDescending() {
-        FriendsLiveData.value = FriendsLiveData.value?.sortedByDescending { it.name.uppercase() }
-    }
-
-    fun sortByAge() {
-        FriendsLiveData.value = FriendsLiveData.value?.sortedBy { it.age }
-    }
-
-    fun sortByAgeDescending() {
-        FriendsLiveData.value = FriendsLiveData.value?.sortedByDescending { it.age }
+        friendLiveData.value = friendLiveData.value?.sortedByDescending { it.name.uppercase() }
     }
 
     fun sortByBirth() {
-        val sdf = SimpleDateFormat("dd-MM")
-        FriendsLiveData.value = FriendsLiveData.value?.sortedBy {
-            sdf.parse("${it.birthDayOfMonth.toString()}-${it.birthMonth.toString()}")
+        val simple = SimpleDateFormat("dd-MM")
+        friendLiveData.value = friendLiveData.value?.sortedBy {
+            simple.parse("${it.birthDayOfMonth.toString()}-${it.birthMonth.toString()}")
         }
     }
 
     fun sortByBirthDescending() {
-        val sdf = SimpleDateFormat("dd-MM")
-        FriendsLiveData.value = FriendsLiveData.value?.sortedByDescending {
-            sdf.parse("${it.birthDayOfMonth.toString()}-${it.birthMonth.toString()}")
+        val simple = SimpleDateFormat("dd-MM")
+        friendLiveData.value = friendLiveData.value?.sortedByDescending {
+            simple.parse("${it.birthDayOfMonth.toString()}-${it.birthMonth.toString()}")
         }
-
     }
 
-    fun filter(condition: String, PersonsId: String?){
-        friendsService.getUserFriends(PersonsId).enqueue(object : Callback<List<Friend>> {
+    fun sortByAge() {
+        friendLiveData.value = friendLiveData.value?.sortedBy { it.age }
+    }
+
+    fun sortByAgeDescending() {
+        friendLiveData.value = friendLiveData.value?.sortedByDescending { it.age }
+    }
+
+    fun filter(condition: String, friendId: String?){
+        serviceFriend.getUserFriends(friendId).enqueue(object : Callback<List<Friend>> {
             override fun onResponse(call: Call<List<Friend>>, response: Response<List<Friend>>) {
                 if (response.isSuccessful) {
-                    val b: List<Friend>? = response.body()
-                    val tryNum: String = condition
+                    val friends: List<Friend>? = response.body()
 
-                    if(tryNum.toIntOrNull() != null) {
-                        FriendsLiveData.value = b?.filter { friend -> friend.age == tryNum.toInt()}
-                    }
-                    else {
-                        FriendsLiveData.value = b?.filter { friend -> friend.name.uppercase().contains(condition.uppercase()) }
+                    when {
+                        condition.toIntOrNull() != null -> {
+                            Log.d("Filter", "Filtering by age: $condition")
+                            friendLiveData.value = friends?.filter { it.age == condition.toInt() }
+                        }
+                        else -> {
+                            Log.d("Filter", "Filtering by name: $condition")
+                            friendLiveData.value = friends?.filter { it.name.uppercase().contains(condition.uppercase()) }
+                        }
                     }
                 } else {
-                    listResponceFail(response)
+                    listResponseFail(response)
                 }
             }
-
             override fun onFailure(call: Call<List<Friend>>, t: Throwable) {
                 onFailureMessage(t)
             }
         })
     }
 }
-
-

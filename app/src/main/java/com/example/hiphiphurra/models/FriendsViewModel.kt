@@ -1,62 +1,61 @@
-package com.example.hiphiphurra.models
+package com.example.hiphiphurra.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.hiphiphurra.repository.FriendsRepository
-
+import com.example.hiphiphurra.models.Friend
+import com.example.hiphurra.repository.FriendsRepository
 
 class FriendsViewModel : ViewModel() {
-    private val repo = FriendsRepository()
-    val FriendsLiveData: LiveData<List<Friend>> = repo.FriendsLiveData
-    val errorMessageLiveData: LiveData<String> = repo.errorMessageLiveData
-    val updateMessageLiveData: LiveData<String> = repo.updateMessageLiveData
+    private val repository = FriendsRepository()
+    val friendLiveData: LiveData<List<Friend>> = repository.friendLiveData
 
     fun reload(userId: String?) {
-        Log.d("reloadData", "viewmodel userId: " + userId)
-        repo.getPersons(userId)
+        Log.d("APPLE", "userId: " + userId)
+        repository.getFriends(userId)
     }
 
     operator fun get(index: Int): Friend? {
-        return FriendsLiveData.value?.get(index)
+        return friendLiveData.value?.get(index)
     }
 
-    fun add(person: Friend) {
-        repo.add(person)
+    fun add(friend: Friend) {
+        repository.add(friend)
     }
 
     fun delete(id: Int) {
-        repo.delete(id)
+        repository.delete(id)
     }
 
-    fun update(person: Friend) {
-        repo.update(person)
+    fun update(friend: Friend) {
+        repository.update(friend)
     }
 
     fun sortByName() {
-        repo.sortByName()
+        repository.sortByName()
     }
 
     fun sortByNameDescending() {
-        repo.sortByNameDescending()
+        repository.sortByNameDescending()
+    }
+
+    fun sortByBirth() {
+        repository.sortByBirth()
+    }
+
+    fun sortByBirthDescending() {
+        repository.sortByBirthDescending()
     }
 
     fun sortByAge() {
-        repo.sortByAge()
+        repository.sortByAge()
     }
 
     fun sortByAgeDescending() {
-        repo.sortByAgeDescending()
-    }
-    fun sortByBirth() {
-        repo.sortByBirth()
-    }
-    fun sortByBirthDescending() {
-        repo.sortByBirthDescending()
+        repository.sortByAgeDescending()
     }
 
-    fun filter(condition: String, userId: String?) {
-        repo.filter(condition, userId)
+    fun filter(condition: String, idUser: String?) {
+        repository.filter(condition, idUser)
     }
-
 }

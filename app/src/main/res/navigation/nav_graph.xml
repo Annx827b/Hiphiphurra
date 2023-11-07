@@ -3,26 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/loginFragment">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.hiphiphurra.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/friends_list_fragment">
-
+        android:id="@+id/loginFragment"
+        android:name="com.example.hiphiphurra.LoginFragment"
+        android:label=""
+        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_loginFragment_to_friendsListFragment"
+            app:destination="@id/friendsListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.hiphiphurra.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/add_a_friend_fragment">
-
+        android:id="@+id/friendsListFragment"
+        android:name="com.example.hiphiphurra.FriendListFragment"
+        android:label="Friend List"
+        tools:layout="@layout/friends_list_fragment" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_friendsListFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_friendsListFragment_to_friendFragmentriendFragment"
+            app:destination="@id/oneFriendFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/oneFriendFragment"
+        android:name="com.example.hiphiphurra.FriendFragment"
+        android:label="Update or delete friend"
+        tools:layout="@layout/fragment_friend" >
+        <argument
+            android:name="pos"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.hiphiphurra.AddAFriendsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_add_friends" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.hiphiphurra.MainActivity"
+        android:label=""
+        tools:layout="@layout/activity_main" />
 </navigation>

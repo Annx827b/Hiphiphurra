@@ -1,76 +1,93 @@
 package com.example.hiphiphurra
 
-import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.hiphiphurra.databinding.AddAFriendFragmentBinding
 import com.example.hiphiphurra.models.Friend
-import com.example.hiphiphurra.models.FriendsViewModel
+import com.example.hiphiphurra.repository.FriendsViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import java.util.*
+import java.util.Calendar
 
-class FriendFragment : Fragment() {
-    private var _binding: AddAFriendFragmentBinding? = null
+class AddAFriendFragment : Fragment() {
+    private var _binding: FragmentAddBinding? = null
+    private var base: FirebaseAuth = FirebaseAuth.getInstance()
+    private val viewModel: FriendsViewModel by activityViewModels()
     private val binding get() = _binding!!
 
-    private val friendsViewModel: FriendsViewModel by activityViewModels()
+    private var day: Int = 1
+    private var month: Int = 1
 
-    // Assuming you have Firebase set up in your project.
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    fun getSpinner(spinner: Spinner) {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+                Log.d("APPLE", "Changing spinner")
+                if (spinner == binding.daySpinner) {
+                    day = pos + 1
+                }
+                if (spinner == binding.monthSpinner) {
+                    month = pos + 1
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Log.d("Apple", "Nothing was called")
+            }
+        }
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = AddAFriendFragmentBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    fun getBar(view: View) {
+        Snackbar.make(view, "Date not valid", Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val spinnerMonth: Spinner = binding.monthSpinner
+        getSpinner(spinnerMonth)
+        val spinnerDay: Spinner = binding.daySpinner
+        getSpinner(spinnerDay)
+        val user = base.currentUser
 
-        binding.buttonPickDate.setOnClickListener {
-            showDatePickerDialog()
-        }
-        binding.buttonAdd.setOnClickListener {
+        binding.add.setOnClickListener {
+            val year = binding.editTextYear.text.trim().toString().toIntOrNull() ?: 0
+            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
             val name = binding.editTextName.text.trim().toString()
 
             if (name.isEmpty()) {
                 binding.editTextName.error = "Please enter a name."
+                return@setOnClickListener
+            } else if (year <= 0 || year > currentYear || year < 1900) {
+                binding.editTextYear.error = "Please enter a valid year."
+                return@setOnClickListener
+            }
+            else if(year % 4 == 0 && month == 2 && day > 29){
+                getBar(view)
+                return@setOnClickListener
+            }else if(year % 4 != 0 &&month == 2 && day > 28) {
+                getBar(view)
+                return@setOnClickListener
             } else {
-                val newFriend = Friend(auth.currentUser?.email ?: "", name)
-                friendsViewModel.add(newFriend)
+                val friendNew = Friend(user?.email.toString(), name, year, month, day)
+                viewModel.add(friendNew)
                 findNavController().popBackStack()
             }
         }
-
-        binding.buttonBack.setOnClickListener {
+        binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
-    }
-
-    private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-
-        DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            // Format the selected date and set the text view to show the selected date
-            binding.textViewSelectedDate.text = String.format(
-                Locale.getDefault(),
-                "%d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay
-            )
-        }, year, month, dayOfMonth).show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
