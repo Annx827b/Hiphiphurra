@@ -15,7 +15,7 @@ import com.example.hiphiphurra.databinding.FriendsListFragmentBinding
 import com.example.hiphiphurra.repository.FriendsViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class AllFriendsFragment : Fragment() {
+class FriendsListFragment : Fragment() {
     private var _binding: FriendsListFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: FriendsViewModel by activityViewModels()
@@ -37,7 +37,7 @@ class AllFriendsFragment : Fragment() {
             if (friends != null) {
                 val adapter = MyAdapter(friends) {pos ->
                     val action =
-                        FriendListFragmentDirections.actionFriendsListFragmentToFriendFragmentriendFragment(pos)
+                        FriendsListFragmentDirections.actionFriendsListFragmentToFriendFragmentriendFragment(pos)
                     findNavController().navigate(action)
                 }
 
