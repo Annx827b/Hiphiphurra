@@ -23,10 +23,10 @@
             app:destination="@id/addFragment" />
         <action
             android:id="@+id/action_friendsListFragment_to_friendFragmentriendFragment"
-            app:destination="@id/oneFriendFragment" />
+            app:destination="@id/friendFragment" />
     </fragment>
     <fragment
-        android:id="@+id/oneFriendFragment"
+        android:id="@+id/friendFragment"
         android:name="com.example.hiphiphurra.FriendFragment"
         android:label="Update or delete friend"
         tools:layout="@layout/fragment_friend" >
