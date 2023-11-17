@@ -48,7 +48,7 @@ class FriendsListFragment : Fragment() {
                 spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long
                     ) {
-                        Log.d("APPLE", "Changing Spinner")
+                        Log.d("Spinner_log", "Changing Spinner")
 
                         if(pos == 1){viewModel.sortByName()}
                         if(pos == 2){viewModel.sortByNameDescending()}
@@ -58,7 +58,7 @@ class FriendsListFragment : Fragment() {
                         if(pos == 6){viewModel.sortByBirthDescending()}
                     }
                     override fun onNothingSelected(parent: AdapterView<*>?) {
-                        Log.d("APPLE", "Nothing was called?")
+                        Log.d("Spinner_log", "Intet blev kaldt")
                     }
                 }
                 binding.filter.setOnClickListener {

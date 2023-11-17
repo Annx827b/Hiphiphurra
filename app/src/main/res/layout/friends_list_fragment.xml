@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/champagne"
         tools:context=".AllFriendsFragment">
 
         <LinearLayout
@@ -19,13 +20,16 @@
             android:orientation="horizontal"
             android:layout_marginTop="15sp">
 
+
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="439dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1sp"
                 android:layout_weight="2"
+                android:fontFamily="sans-serif-black"
                 android:text="TextView"
-                android:layout_marginLeft="150sp"/>
+                android:textSize="25dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -52,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:inputType="text"
-                android:hint="Search" />
+                android:hint="Søg" />
 
             <Button
                 android:id="@+id/filter"
@@ -60,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Filter"
-                android:backgroundTint="@color/darkpink"/>
+                android:backgroundTint="@color/hotpink"/>
 
         </LinearLayout>
 
@@ -85,11 +89,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_button"
-        android:layout_width="wrap_content"
+        android:layout_width="431dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|center"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/darkpink"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

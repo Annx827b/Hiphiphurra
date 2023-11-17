@@ -29,7 +29,7 @@ class FriendFragment : Fragment() {
     }
 
     fun getBar(view: View) {
-        Snackbar.make(view, "Date not valid", Snackbar.LENGTH_LONG)
+        Snackbar.make(view, "Denne dato er ikke valid", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
     }
 
@@ -41,14 +41,14 @@ class FriendFragment : Fragment() {
         val friend = viewModel[position]
 
         if (friend == null) {
-            binding.textMessage.text = "There were not such a friend!"
+            binding.textMessage.text = "Den ven du leder efter findes ikke!"
             return
         }
         binding.editTextName.setText(friend.name)
         binding.editDay.setText(friend.birthDayOfMonth.toString())
         binding.editMonth.setText(friend.birthMonth.toString())
         binding.editYear.setText(friend.birthYear.toString())
-        binding.viewAge.setText("Age: " + friend.age.toString())
+        binding.viewAge.setText("Alder: " + friend.age.toString())
 
         binding.backButton.setOnClickListener { findNavController().popBackStack() }
 
@@ -66,10 +66,10 @@ class FriendFragment : Fragment() {
             val day = binding.editDay.text.toString().trim().toInt()
             val age = 1
             if (name.isEmpty()) {
-                binding.editTextName.error = "Please enter a name."
+                binding.editTextName.error = "Indtast venligst et navn!"
                 return@setOnClickListener
             } else if (year <= 0 || year > currentYear || year < 1900) {
-                binding.editYear.error = "Please enter a valid year."
+                binding.editYear.error = "Årstal er ikke gyldigt! (Psst.. Skal være efter 1900)"
                 return@setOnClickListener
             } else if (year % 4 == 0 && month == 2 && day > 29) {
                 getBar(view)

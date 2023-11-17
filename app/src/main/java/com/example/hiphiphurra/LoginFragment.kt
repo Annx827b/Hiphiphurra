@@ -2,14 +2,13 @@ package com.example.hiphiphurra
 
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
+import com.example.hiphiphurra.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.hiphiphurra.databinding.FragmentLoginBinding
-
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -36,14 +35,14 @@ class LoginFragment : Fragment() {
             base.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        Log.d("APPLE", "Email:success")
+                        Log.d("Sign_In", "Email:success")
 
                         val user = base.currentUser
                         findNavController().navigate(R.id.action_loginFragment_to_friendsListFragment)
                     } else {
-                        Log.w("APPLE", "Email:failure", task.exception)
+                        Log.w("Sign_In", "Email:failure", task.exception)
                         binding.viewMessage.text =
-                            "Failed: - Not a user.  " + task.exception?.message
+                            "Hov noget gik galt! Tjek om din mail og kodeord er skrevet korrekt!"
                     }
                 }
         }
@@ -62,11 +61,11 @@ class LoginFragment : Fragment() {
             base.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        Log.d("APPLE", "Email:success")
+                        Log.d("Create_Log", "Email:success")
                         val user = base.currentUser
                         findNavController().navigate(R.id.action_loginFragment_to_friendsListFragment)
                     } else {
-                        Log.w("APPLE", "Email:failure", task.exception)
+                        Log.w("Create_Log", "Email:failure", task.exception)
                         binding.viewMessage.text =
                             "Failed:  - Already a user.   " + task.exception?.message
                     }

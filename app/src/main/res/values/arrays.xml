@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="filtering">
-        <item>Sort by:</item>
-        <item>Name ascending</item>
-        <item>Name descending</item>
-        <item>Age ascending</item>
-        <item>Age descending</item>
-        <item>Birthday ascending</item>
-        <item>Birthday descending</item>
+        <item>Navn faldende</item>
+        <item>Navn stigende</item>
+        <item>Alder faldende</item>
+        <item>Alder stigende</item>
+        <item>Fødselsdag stigende</item>
+        <item>Fødselsdag faldende</item>
     </array>
     <array name="dayOfBirth">
-        <item>Date:</item>
+        <item>Dag:</item>
         <item>"1"</item>
         <item>"2"</item>
         <item>"3"</item>
@@ -44,17 +43,17 @@
         <item>"31"</item>
     </array>
     <array name="birthdayMonth">
-        <item>Month:</item>
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
+        <item>Måned:</item>
+        <item>Januar</item>
+        <item>Februar</item>
+        <item>Marts</item>
         <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
+        <item>Maj</item>
+        <item>Juni</item>
+        <item>Juli</item>
         <item>August</item>
         <item>September</item>
-        <item>October</item>
+        <item>Oktober</item>
         <item>November</item>
         <item>December</item>
     </array>

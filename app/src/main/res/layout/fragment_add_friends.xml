@@ -7,13 +7,13 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/champagne"
-    tools:context="com.example.hiphiphurra.AddAFriendFragment">
+    tools:context="com.example.hiphiphurra.AddFriendsFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ADD A FRIEND"
-        android:layout_marginLeft="118sp"
+        android:text="TILFØJ EN VEN"
+        android:layout_marginLeft="1sp"
         android:fontFamily="sans-serif-black"
         android:textSize="25sp"/>
 
@@ -39,7 +39,7 @@
         android:id="@+id/editText_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="NAME"
+        android:hint="NAVN PÅ DIN VEN"
         android:inputType="text"
         android:padding="8dp"
         android:textSize="16sp"
@@ -50,7 +50,7 @@
         android:id="@+id/editText_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="YEAR OF BIRTH"
+        android:hint="FØDSELSDAGS ÅR"
         android:inputType="numberDecimal"
         android:padding="8dp"
         android:textSize="16sp"
@@ -76,7 +76,7 @@
         android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:text="TILFØJ"
         android:padding="8dp"
         android:textSize="16sp"
         android:fontFamily="sans-serif"
@@ -87,7 +87,7 @@
         android:id="@+id/back_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back"
+        android:text="TILBAGE"
         android:padding="8dp"
         android:textSize="16sp"
         android:fontFamily="sans-serif"

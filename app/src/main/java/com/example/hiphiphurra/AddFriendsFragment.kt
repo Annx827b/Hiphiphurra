@@ -29,7 +29,7 @@ class AddFriendsFragment : Fragment() {
     fun getSpinner(spinner: Spinner) {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-                Log.d("APPLE", "Changing spinner")
+                Log.d("Spinner_log", "Changing spinner")
                 if (spinner == binding.daySpinner) {
                     day = pos + 1
                 }
@@ -38,7 +38,7 @@ class AddFriendsFragment : Fragment() {
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.d("Apple", "Nothing was called")
+                Log.d("Spinner_log", "Intet blev kaldt")
             }
         }
     }
@@ -50,8 +50,8 @@ class AddFriendsFragment : Fragment() {
         return binding.root
     }
 
-    fun getBar(view: View) {
-        Snackbar.make(view, "Date not valid", Snackbar.LENGTH_LONG)
+    fun getSnackbar(view: View) {
+        Snackbar.make(view, "Datoen er ikke valid!", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
     }
 
@@ -69,17 +69,17 @@ class AddFriendsFragment : Fragment() {
             val name = binding.editTextName.text.trim().toString()
 
             if (name.isEmpty()) {
-                binding.editTextName.error = "Please enter a name."
+                binding.editTextName.error = "Indtast venligst et navn."
                 return@setOnClickListener
             } else if (year <= 0 || year > currentYear || year < 1900) {
-                binding.editTextYear.error = "Please enter a valid year."
+                binding.editTextYear.error = "Årstal er ikke gyldigt! (Psst.. Skal være efter 1900)"
                 return@setOnClickListener
             }
             else if(year % 4 == 0 && month == 2 && day > 29){
-                getBar(view)
+                getSnackbar(view)
                 return@setOnClickListener
             }else if(year % 4 != 0 &&month == 2 && day > 28) {
-                getBar(view)
+                getSnackbar(view)
                 return@setOnClickListener
             } else {
                 val friendNew = Friend(user?.email.toString(), name, year, month, day)

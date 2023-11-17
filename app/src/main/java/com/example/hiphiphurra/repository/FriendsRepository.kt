@@ -10,7 +10,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.text.SimpleDateFormat
 import com.example.hiphiphurra.models.Friend
 import com.example.hiphiphurra.repository.FriendsService
-import java.util.Calendar
+import java.util.*
+
 
 class FriendsRepository {
     private val baseUrl = "https://birthdaysrest.azurewebsites.net/api/"
@@ -29,23 +30,23 @@ class FriendsRepository {
 
     fun onFailureMessage(t: Throwable){
         errorLiveData.postValue(t.message)
-        Log.d("APPLE","Method: " + t.message!!)
+        Log.d("Repository_log","Method: " + t.message!!)
     }
 
     fun listResponseFail(response: Response<List<Friend>>){
         val message = response.code().toString() + " " + response.message()
         errorLiveData.postValue(message)
-        Log.d("APPLE", message)
+        Log.d("Repository_log", message)
     }
 
     fun checkResponse(response: Response<Friend>, operation: String){
         if (response.isSuccessful) {
-            Log.d("APPLE", "$operation: " + response.body())
+            Log.d("Repository_log", "$operation: " + response.body())
             updateLiveData.postValue("$operation: " + response.body())
         } else {
             val message = response.code().toString() + " " + response.message()
             errorLiveData.postValue(message)
-            Log.d("APPLE", message)
+            Log.d("Repository_log", message)
         }
     }
 
@@ -53,8 +54,8 @@ class FriendsRepository {
         serviceFriend.getUserFriends(user_id).enqueue(object : Callback<List<Friend>> {
             override fun onResponse(call: Call<List<Friend>>, response: Response<List<Friend>>) {
                 if (response.isSuccessful) {
-                    Log.d("APPLE", serviceFriend.getUserFriends(user_id).toString() )
-                    Log.d("APPLE",user_id +"hhhhh0000")
+                    Log.d("Repository_log", serviceFriend.getUserFriends(user_id).toString() )
+                    Log.d("Repository_log",user_id +"hhhhh0000")
                     val b: List<Friend>? = response.body()
                     friendLiveData.postValue(b!!)
                     errorLiveData.postValue("")
@@ -110,16 +111,16 @@ class FriendsRepository {
     }
 
     fun sortByBirth() {
-        val simple = SimpleDateFormat("dd-MM")
-        friendLiveData.value = friendLiveData.value?.sortedBy {
-            simple.parse("${it.birthDayOfMonth.toString()}-${it.birthMonth.toString()}")
+        val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        friendLiveData.value = friendLiveData.value?.sortedBy { friend ->
+            simpleDateFormat.parse("${friend.birthDayOfMonth}-${friend.birthMonth}-${friend.birthYear}")
         }
     }
 
     fun sortByBirthDescending() {
-        val simple = SimpleDateFormat("dd-MM")
-        friendLiveData.value = friendLiveData.value?.sortedByDescending {
-            simple.parse("${it.birthDayOfMonth.toString()}-${it.birthMonth.toString()}")
+        val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        friendLiveData.value = friendLiveData.value?.sortedByDescending { friend ->
+            simpleDateFormat.parse("${friend.birthDayOfMonth}-${friend.birthMonth}-${friend.birthYear}")
         }
     }
 

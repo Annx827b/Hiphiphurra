@@ -11,7 +11,7 @@ class FriendsViewModel : ViewModel() {
     val friendLiveData: LiveData<List<Friend>> = repository.friendLiveData
 
     fun reload(userId: String?) {
-        Log.d("APPLE", "userId: " + userId)
+        Log.d("Reload_log", "userId: " + userId)
         repository.getFriends(userId)
     }
 
